@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+.transactions-container {
+    background-color: white;
+    border-style: solid;
+    border-width: 0px 100px;
+    padding: 0 50px;
+}
+
+.title {
+    font-size: 24px;
+    padding: 80px 0px 20px 0px;
+}
+
+.transactions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.transactions-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 10px 20px 10px;
+    width: 100%;
+}
+
+.transactions-item a:visited {
+	color: white;
+}
+
+.transactions-item img {
+    width: 13%;
+    border-radius: 5px;
+}
+
+.rating {
+    padding: 0px 0px 10px 0px;
+}
+
+.rating img {
+    width: 15px;
+}
+
+.transactions-description {
+    padding: 0px 20px 0px 20px;
+    width: 57%;
+}
+
+.transactions-description h2 {
+    font-size: 18px;
+    padding: 10px 0px 15px 0px;
+}
+
+.transactions-description p {
+    font-size: 16px;
+}
+
+.rating-number {
+    padding-left: 5px;
+}
+
+.transactions-button-container {
+    width: 30%;
+    padding: 15px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.transactions-button {
+    color: white;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 5px;
+    margin: 0px 8px;
+}
+
+.transactions-button-edit {
+    background-color: #228B22;
+}
+
+.transactions-button-edit:hover {
+    background-color: #44AD44;
+}
+
+.transactions-button-edit:active {
+    background-color: #006900;
+}
+
+.transactions-button-delete {
+    background-color: #FF0000;
+}
+
+.transactions-button-delete:hover {
+    background-color: #FF8060;
+}
+
+.transactions-button-delete:active {
+    background-color: #8B0000;
+}
+
+.transactions-button-add {
+    background-color: #00c1ec
+}
+
+.transactions-button-add:hover {
+    background-color: #00add4;
+}
+
+.transactions-button-add:active {
+    background-color: #0083a0;
+}
+
+hr {
+    border: 0;
+    clear: both;
+    display: block;
+    width: 100%;               
+    background-color: black;
+    height: 1px;
+}

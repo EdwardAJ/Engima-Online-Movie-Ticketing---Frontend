@@ -1,0 +1,189 @@
+* {
+	margin: 0px;
+	padding: 0px;
+    box-sizing: border-box;
+	font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.body-container {
+    padding: 80px 50px;
+    border-style: solid;
+    border-width: 0px 100px;
+    border-color: #262626;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body {
+    margin: 0 auto;
+    width: 1300px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.table-row a:visited{
+    color: #00c1ec;
+}
+
+.movie-details {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.movie-img {
+    width: 250px;
+    border-radius: 5px;
+    margin-right: 50px;
+}
+
+.movie-description {
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+#movie-title {
+    font-size: 24px;
+}
+
+.movie-description p {
+    padding-top: 8px;
+    font-size: 15px;
+}
+
+.movie-tag {
+    color: #00c1ec;
+    font-weight: 580;
+}
+
+.movie-release {
+    color: gray;
+    font-weight: 580;
+}
+
+.rating-star {
+    width: 19px;
+    padding-right: 3px;
+}
+
+.movie-rating {
+    padding-top: 0px;
+    font-size: 20px;
+    color: gray;
+}
+
+#movie-rating {
+    font-size: 23px;
+}
+
+.movie-description .movie-description-text {
+    padding-top: 15px;
+}
+
+.movie-schedules {
+    width: 700px;
+    box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.movie-reviews {
+    width: 500px;
+    box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.table {
+    display: table;
+    width: 100%;
+    margin: 20px 5px;
+    color: gray;
+}
+
+.table-row {
+    display: table-row;
+    height: 40px;
+}
+
+.table-cell {
+    display: table-cell;
+    border-top: 1px solid gray; 
+    vertical-align: middle;
+}
+
+.table-row-heading {
+    font-weight: 700;
+}
+
+.table-row-heading .table-cell {
+    border-top: none;
+}
+
+.seat-number {
+    font-weight: 700;
+    color: black;
+}
+
+.availability {
+    text-align: right;
+    font-weight: 600;
+}
+
+.availability-mark {
+    width: 15px;
+    margin-left: 15px;
+}
+
+.available {
+    color: #00c1ec;
+}
+
+.not-available {
+    color: red;
+}
+
+.reviews-item-container {
+    margin: 20px 5px;
+}
+
+.reviews-item {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid gray;
+    padding: 20px 0px;
+}
+
+.reviews-item:first-of-type {
+    border-top: none;
+}
+
+.reviews-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.reviews-description {
+    width: 380px;
+}
+
+.reviews-name {
+    color: gray;
+}
+
+.reviews-text {
+    color: dimgray;
+}

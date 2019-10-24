@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-witdh, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../stylesheet/review.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheet/home.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+    <script src="../javascript/ajax.js"></script>
+	<title>Add Reviews Page</title>
+
+</head>
+<body>
+    <!-- NAVBAR -->
+
+    <div class="body-container" id="review-container">
+        <h1 class="review-title"><a href="/transactions"><img src="../img/leftarrow.png" alt="left arrow"/></a><b id="movie-title">Avengers: Endgame</b></h1>
+        <div class="review-description">
+            <div class="review-item rating">
+                <h2 class="form-add-text">Add Rating</h2>
+                <div class="rating-star-container" id="rating-star-container">
+                </div>
+            </div>
+            <div class="review-item review-text">
+                <h2 class="form-add-text">Add Review</h2>
+                <textarea rows="4" class="input-review-text" id="input-review-text"></textarea>
+            </div>
+            <div class="review-button-container">
+                <a class="review-button cancel-button" href="/transactions">Cancel</a>
+                <label class="review-button submit-button" onclick="addReview()">Submit</label>
+            </div>
+        </div>
+    </div>
+    <script src="../javascript/utility.js"></script>
+	<script src="../javascript/review.js"></script>
+</body>
+</html>

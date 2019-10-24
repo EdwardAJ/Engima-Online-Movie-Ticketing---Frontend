@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    background-color: #262626;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.buy-ticket-container {
+    padding: 80px 50px;
+    border-style: solid;
+    border-width: 0px 100px;
+    border-color: #262626;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buy-ticket {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: space-around;
+}
+
+.ticket {
+    width: 1200px;
+    display: flex;
+    padding-bottom: 30px;
+    border-bottom: 1px solid lightgray;
+}
+
+.ticket img {
+    width: 40px;
+    height: 50px;
+    margin-right: 30px;
+}
+
+.ticket p {
+    padding-top: 10px;
+}
+
+.seat-choosing {
+    width: 600px;
+    padding-right: 50px;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-right: 1px solid lightgray;
+}
+
+.seat {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    margin: 8px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.seat-taken {
+    color: dimgray;
+    background-color: lightgray;
+    border: 1px solid dimgray;
+}
+
+.seat-free {
+    color: deepskyblue;
+    border: 1px solid deepskyblue;
+}
+
+.seat-chosen {
+    color: white;
+    background-color: deepskyblue;
+}
+
+.screen {
+    width: 550px;
+    height: 36px;
+    line-height: 36px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 3px;
+    color: white;
+    background-color: dimgray;
+}
+
+.booking-summary {
+    margin: 25px;
+    color: dimgray;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.ticket-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.seat-chosen-text {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.seat-price {
+    float: right;
+}
+
+.buy-button {
+    align-self: flex-end;
+    margin-top: 40px;
+    padding: 8px 20px;
+    color: white;
+    background-color: deepskyblue;
+    border-radius: 4px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.message-modal {
+    margin: 400px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px 0px;
+}
+
+.message-modal * {
+    width: 70%;
+    text-align: center;
+    margin: 30px 0px;
+}
+
+#payment-text {
+    color: #00c1ec;
+}
+
+.message-modal a:visited {
+    color: white;
+}
+
+.transaction-button {
+    padding: 20px 0px;
+    color: white;
+    background-color: deepskyblue;
+    border-radius: 5px;
+}

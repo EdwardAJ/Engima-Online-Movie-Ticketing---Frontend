@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS users;
+
+DROP TABLE IF EXISTS movies;
+
+DROP TABLE IF EXISTS genres;
+
+DROP TABLE IF EXISTS movie_genres;
+
+DROP TABLE IF EXISTS screenings;
+
+DROP TABLE IF EXISTS transactions;
+
+DROP TABLE IF EXISTS reviews;

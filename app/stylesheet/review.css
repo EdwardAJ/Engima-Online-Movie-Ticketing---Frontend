@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.body-container {
+    padding: 80px 50px;
+    border-style: solid;
+    border-width: 0px 100px;
+    border-color: #262626;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-title {
+    padding-left: 100px;
+    align-self: flex-start;
+    display: flex;
+    align-content: center;
+}
+
+.review-title img {
+    height: 30px;
+    margin-right: 40px;
+}
+
+.review-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 900px;
+    padding: 40px 0px;
+}
+
+.rating {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 900px;
+}
+
+.rating-star {
+    width: 28px;
+    padding: 0 3px;
+}
+
+.review-text {
+    display: flex;
+    justify-content: flex-start;
+    width: 900px;
+    padding-bottom: 50px;
+}
+
+.form-add-text {
+    width: 130px;
+}
+
+.input-review-text {
+    width: 750px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.review-item {
+    margin: 15px 0px;
+}
+
+.review-item:first-of-type {
+    margin-top: 30px;
+}
+
+.review-button-container {
+    margin-left: auto;
+    display: flex;
+}
+
+.review-button {
+    font-weight: 700;
+    padding: 8px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin: 0px 8px;
+}
+
+.submit-button {
+    background-color: deepskyblue;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #eee;
+}
+
+.cancel-button:active {
+    background-color: #ddd;
+}
+
+.submit-button:hover {
+    background-color: rgb(0, 211, 255)
+}
+
+.submit-button:active {
+    background-color: rgb(0, 180, 255);
+}

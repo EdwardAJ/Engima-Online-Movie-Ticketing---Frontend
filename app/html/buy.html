@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-witdh, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../stylesheet/buy.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheet/home.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+    <script src="../javascript/ajax.js"></script>
+	<title>Ticket Page</title>
+
+</head>
+<body>
+    <!-- NAVBAR -->
+
+    <div class="modal" id="modal">
+        <div class="message-modal">
+            <h1 id="payment-text">Payment Success</h1>
+            <p id="payment-message">Thank you for purchasing! You can view your purchase now.</p>
+            <a class="transaction-button hoverable" href="/transactions">Go to transaction history</a>
+        </div>
+    </div>
+
+    <div class="buy-ticket-container">
+        <div class="buy-ticket">
+            <div class="ticket">
+                <img class="hoverable" src="../img/leftarrow.png" onclick="window.history.back()"/>
+                <div class="ticket-description">
+                    <h1 id="movie-title">Avengers: Endgame</h1>
+                    <p id="movie-schedule">September 4, 2019 - 09.40 PM</p>
+                </div>
+            </div>
+            <div class="seat-choosing" id="seat-choosing">
+                <label class="seat seat-taken">1</label>
+                <label class="seat seat-free">2</label>
+                <label class="seat seat-free">3</label>
+                <label class="seat seat-taken">4</label>
+                <label class="seat seat-taken">5</label>
+                <label class="seat seat-free">6</label>
+                <label class="seat seat-free">7</label>
+                <label class="seat seat-free">8</label>
+                <label class="seat seat-free">9</label>
+                <label class="seat seat-taken">10</label>
+                <label class="seat seat-free">11</label>
+                <label class="seat seat-free">12</label>
+                <label class="seat seat-taken">13</label>
+                <label class="seat seat-taken">14</label>
+                <label class="seat seat-taken">15</label>
+                <label class="seat seat-taken">16</label>
+                <label class="seat seat-free">17</label>
+                <label class="seat seat-chosen">18</label>
+                <label class="seat seat-free">19</label>
+                <label class="seat seat-free">20</label>
+                <label class="seat seat-free">21</label>
+                <label class="seat seat-free">22</label>
+                <label class="seat seat-free">23</label>
+                <label class="seat seat-free">24</label>
+                <label class="seat seat-free">25</label>
+                <label class="seat seat-free">26</label>
+                <label class="seat seat-free">27</label>
+                <label class="seat seat-free">28</label>
+                <label class="seat seat-free">29</label>
+                <label class="seat seat-taken">30</label>
+                <div class="screen">Screen</div>
+            </div>
+            <div class="booking-summary" id="booking-summary">
+                <h2>Booking Summary</h2>
+                <p>You haven't selected any seat yet. Please click on one of the seat provided.</p>
+            </div>
+        </div>
+    </div>
+    <script src="../javascript/utility.js"></script>
+	<script src="../javascript/buy.js"></script>
+</body>
+</html>
