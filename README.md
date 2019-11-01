@@ -1,31 +1,31 @@
 **Pembagian Tugas**
-Engima:
-    Database design: 13517070
-    Home: 13517115
-    Film details: 13517115
-    Buy tickets: 13517070
-    Transaction history - status: 13516088
-    Transaction history: 13516088
+Engima: <br/>
+    Database design: 13517070 <br/>
+    Home: 13517115 <br/>
+    Film details: 13517115 <br/>
+    Buy tickets: 13517070 <br/>
+    Transaction history - status: 13516088 <br/>
+    Transaction history: 13516088 <br/>
 
-Bankpro:
-    Login: 13517115
-    Transfer: 13517070
-    Riwayat transaksi: 13516088
-    Style CSS: 13517115, 13516088, 13517070
+Bankpro: <br/>
+    Login: 13517115 <br/>
+    Transfer: 13517070 <br/>
+    Riwayat transaksi: 13516088 <br/>
+    Style CSS: 13517115, 13516088, 13517070 <br/>
 
-Bank:
-    Transaction check: 13517115
-    Virtual account: 13517115
-    Transfer transaction: 13517070
-    Data rekening: 13517070
-    Validasi nomor rekening: 13516088
+Bank: <br/>
+    Transaction check: 13517115 <br/>
+    Virtual account: 13517115 <br/>
+    Transfer transaction: 13517070 <br/>
+    Data rekening: 13517070 <br/>
+    Validasi nomor rekening: 13516088 <br/>
 
-Rest api transaksi:
-    Routing endpoint: 13516088
-    Data access: 13517115
-    Create migration: 13517070
+Rest api transaksi: <br/>
+    Routing endpoint: 13516088 <br/>
+    Data access: 13517115 <br/>
+    Create migration: 13517070 <br/>
 
-BONUS:
-    Login Via Google: 13517115, 13516088
-    Status Pembayaran Real Time: 13517115
-    Autentikasi Web Service Bank: 13517070
+BONUS: <br/>
+    Login Via Google: 13517115, 13516088 <br/>
+    Status Pembayaran Real Time: 13517115 <br/>
+    Autentikasi Web Service Bank: 13517070 <br/>
