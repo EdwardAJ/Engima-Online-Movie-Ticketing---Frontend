@@ -21,9 +21,9 @@ Bank: <br/>
 5. Validasi nomor rekening: 13516088 <br/>
 
 Rest api transaksi: <br/>
-1. Routing endpoint: 13516088 <br/>
-2. Data access: 13517115 <br/>
-3. Create migration: 13517070 <br/>
+1. Tambah transaksi: 13516088
+2. Ubah transaksi: 13517070
+3. Lihat keseluruhan transaksi: 13517115 <br/>
 
 BONUS: <br/>
 1. Login Via Google: 13517115, 13516088 <br/>
