@@ -16,7 +16,7 @@ build:
     - gcc helloworld.c -o hello
   artifacts:
     paths:
-      - hello
+      - hello.exe
      
 
 run:
