@@ -1,9 +1,9 @@
 image: gcc
 
-job:
-  tags:
-    - build
-    - run
+# job:
+#   tags:
+#     - build
+#     - run
     
 stages:
     - build
