@@ -1,5 +1,10 @@
 image: gcc
 
+job:
+  tags:
+    - build
+    - run
+    
 stages:
     - build
     - run
