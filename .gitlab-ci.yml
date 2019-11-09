@@ -1,0 +1,20 @@
+image: gcc
+
+stages:
+    - build
+    - run
+
+build:
+  stage: build
+  
+  script:
+    - gcc helloworld.c -o hello
+  artifacts:
+    paths:
+      - hello
+     
+
+run:
+  stage: run
+  script:
+    - ./hello
