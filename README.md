@@ -14,11 +14,11 @@ Bankpro: <br/>
 4. Style CSS: 13517115, 13516088, 13517070 <br/>
 
 Bank: <br/>
-1. Transaction check: 13517115 <br/>
+1. Transaction check: 13516088 <br/>
 2. Virtual account: 13517115 <br/>
 3. Transfer transaction: 13517070 <br/>
-4. Data rekening: 13517070 <br/>
-5. Validasi nomor rekening: 13516088 <br/>
+4. Data rekening: 13517115 <br/>
+5. Validasi nomor rekening: 13517115 <br/>
 
 Rest api transaksi: <br/>
 1. Tambah transaksi: 13516088
