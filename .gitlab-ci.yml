@@ -1,5 +1,12 @@
 image: gcc
 
+variables:
+    - MYSQL_SERVER_FOR_PHP : mysql:3306
+    - MYSQL_CONTAINER_NAME : engima_mysql
+    - MYSQL_DATABASE : engima_database
+    - MYSQL_USER : engima
+    - MYSQL_PASS : engimapw
+
 # job:
 #   tags:
 #     - build
