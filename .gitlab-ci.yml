@@ -1,4 +1,4 @@
-image: gcc
+image: node:8.9.0
 
 # environment:
 #     - MYSQL_SERVER_FOR_PHP : mysql:3306
