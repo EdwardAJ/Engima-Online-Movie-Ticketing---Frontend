@@ -113,8 +113,14 @@ abstract class Model
                 continue;
             }
             $value_string .= $count > 0 && $count < count($values) - 1 ? ', ' : '';
-            if ($value != null) {
-                $value_string .= gettype($value) == 'string' ? '"'.$value.'"' : $value;
+            if ($value != null || $value === 0) {
+                if (gettype($value) == 'string') {
+                    $value_string .= '"'.$value.'"';
+                } else if ($value instanceof DateTime) {
+                    $value_string .= '"'.$value->format('Y-m-d h:i:s').'"';
+                } else {
+                    $value_string .= $value;
+                }
             } else {
                 $value_string .= 'NULL';
             }

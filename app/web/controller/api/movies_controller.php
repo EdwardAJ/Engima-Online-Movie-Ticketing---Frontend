@@ -27,14 +27,7 @@ class MoviesController extends Controller
                 return;
             }
 
-            $movie = Movie::get_by('id', $normalized_params['movie_id']);
-            if (count($movie) != 1) {
-                parent::render(401, 'Movie not found!');
-                return;
-            }
-
-            $movie = $movie[0];
-            $reviews = Review::get_by('movie_id', $movie->id);
+            $reviews = Review::get_by('movie_id', $normalized_params['movie_id']);
 
             $response_data = [];
             foreach ($reviews as $review) {
@@ -252,8 +245,13 @@ class MoviesController extends Controller
             throw new Exception('Parameter movie_id required!');
         }
 
+        if (!isset($_GET['release_date'])) {
+            throw new Exception('Parameter release_date required!');
+        }
+
         return [
-            'movie_id' => $_GET['movie_id']
+            'movie_id' => $_GET['movie_id'],
+            'release_date' => $_GET['release_date']
         ];
     }
 
@@ -270,14 +268,20 @@ class MoviesController extends Controller
                 return;
             }
 
-            $movie = Movie::get_by('id', $normalized_params['movie_id']);
-            if (count($movie) != 1) {
-                parent::render(401, 'Movie not found!');
-                return;
+            $screenings = Screening::get_by('movie_id', $normalized_params['movie_id']);
+            if (count($screenings) == 0) {
+                $release_date = new DateTime($normalized_params['release_date']);
+                for ($i = 0; $i < 7; $i++) {
+                    $release_date->add(new DateInterval('P1D'));
+                    $new_screening = new Screening();
+                    $new_screening->movie_id = (int) $normalized_params['movie_id'];
+                    $new_screening->show_time = $release_date;
+                    $new_screening->price = 45000;
+                    $new_screening->seats = 0;
+                    $new_screening->save();
+                }
+                $screenings = Screening::get_by('movie_id', $normalized_params['movie_id']);
             }
-
-            $movie = $movie[0];
-            $screenings = Screening::get_by('movie_id', $movie->id);
 
             $response_data = [];
             foreach ($screenings as $screening) {

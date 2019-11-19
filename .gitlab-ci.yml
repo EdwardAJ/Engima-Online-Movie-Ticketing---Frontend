@@ -1,43 +1,8 @@
-image: node:8.9.0
-
-# environment:
-#     - MYSQL_SERVER_FOR_PHP : mysql:3306
-#     - MYSQL_CONTAINER_NAME : engima_mysql
-#     - MYSQL_DATABASE : engima_database
-#     - MYSQL_USER : engima
-#     - MYSQL_PASS : engimapw
-
-# job:
-#   tags:
-#     - build
-#     - run
-variables:
-    MYSQL_SERVER_FOR_PHP: 'mysql:3306'
-    MYSQL_CONTAINER_NAME: 'engima_mysql'
-    MYSQL_DATABASE: 'engima_database'
-    MYSQL_USER: 'engima'
-    MYSQL_PASS: 'engimapw'
-
-
-
 stages:
     - build
     - run
 
 build:
   stage: build
-  
   script:
-    - gcc helloworld.c -o hello
-  
-  
-
-  artifacts:
-    paths:
-      - hello.exe
-     
-
-run:
-  stage: run
-  script:
-    - ./hello
+    

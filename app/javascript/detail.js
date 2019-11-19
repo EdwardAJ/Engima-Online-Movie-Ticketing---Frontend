@@ -4,31 +4,29 @@ function createGenreText(movie) {
         if (i > 0) {
             genreText += ', ';
         }
-        genreText += movie.genres[i];
+        genreText += movie.genres[i].name;
     }
 
     return genreText;
 }
 
 function setMovieDetails(movie) {
-    document.getElementById('movie-img').src = movie.movie_picture_url;
-    document.getElementById('movie-title').innerHTML = movie.title;
+    document.getElementById('movie-img').src = getImageURLMovieDB() + movie.poster_path;
+    document.getElementById('movie-title').innerHTML = movie.original_title;
     document.getElementById('movie-genres').innerHTML = createGenreText(movie);
-    document.getElementById('movie-duration').innerHTML = movie.duration;
+    document.getElementById('movie-duration').innerHTML = '-';
     document.getElementById('movie-release').innerHTML = 'Released date: ' + movie.release_date;
-    document.getElementById('movie-rating').innerHTML = movie.score;
-    document.getElementById('movie-description-text').innerHTML = movie.description;
+    document.getElementById('movie-rating').innerHTML = movie.vote_average;
+    document.getElementById('movie-description-text').innerHTML = movie.overview;
 }
 
 function getMovieDetailCallback(response) {
     response = JSON.parse(response);
-    if (response.response_code === 200) {
-        setMovieDetails(response.data);
-    }
+    setMovieDetails(response);
 }
 
 function getMovieDetail() {
-    sendRequest('GET', getAPIDomain() + '/movies/get?movie_id=' + getParameterValue(location, 'movie_id'), null, getMovieDetailCallback, false);
+    sendRequest('GET', 'https://api.themoviedb.org/3/movie/' + getParameterValue(location, 'movie_id'), null, getMovieDetailCallback, false, getGeneralHeaderMovieDB());
 }
 
 function createHTMLforReview(review) {
@@ -116,7 +114,8 @@ function getMovieScheduleCallback(response) {
 }
 
 function getMovieSchedule() {
-    sendRequest('GET', getAPIDomain() + '/movies/schedules?movie_id=' + getParameterValue(location, 'movie_id'), null, getMovieScheduleCallback, false);
+    var releaseDate = document.getElementById('movie-release').innerText.substring(15);
+    sendRequest('GET', getAPIDomain() + '/movies/schedules?movie_id=' + getParameterValue(location, 'movie_id') + '&release_date=' + releaseDate, null, getMovieScheduleCallback, false);
 }
 
 setElementHeights('body-container');
