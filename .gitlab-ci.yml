@@ -23,23 +23,30 @@ before_script:
 
 
 stages:
-    - build
-    - run
+    - deploy
 
-build:
-  stage: build
+# build:
+#   stage: build
   
-  script:
-    - gcc helloworld.c -o hello
+#   script:
+#     - gcc helloworld.c -o hello
   
   
 
-  artifacts:
-    paths:
-      - hello.exe
+#   artifacts:
+#     paths:
+#       - hello.exe
      
 
-run:
-  stage: run
+# run:
+#   stage: run
+#   script:
+#     - ./hello
+
+deploy:dev:
+  stage: deploy
   script:
-    - ./hello
+    - bash deploy/deploy.sh
+  only:
+    - master
+
