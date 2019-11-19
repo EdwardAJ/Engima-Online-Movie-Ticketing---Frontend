@@ -7,7 +7,7 @@ set -e
 rm -rf /home/ubuntu/ci_cd_demo/
 
 # clone the repo again
-git clone https://gitlab.com/abhinavdhasmana/ci_cd_demo.git
+git clone https://gitlab.informatika.org/if3110-2019-02-k01-06/engima.git
 
 #source the nvm file. In an non
 #If you are not using nvm, add the actual path like
