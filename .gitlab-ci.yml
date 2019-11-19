@@ -46,7 +46,7 @@ stages:
 deploy:dev:
   stage: deploy
   script:
-    - bash deploy/deploy.sh
+    - bash deploy.sh
   only:
     - master
 
