@@ -4,7 +4,7 @@
 set -e
 
 # Delete the old repo
-rm -rf /home/ubuntu/ci_cd_demo/
+#rm -rf /home/ubuntu/ci_cd_demo/
 
 # clone the repo again
 git clone https://gitlab.informatika.org/if3110-2019-02-k01-06/engima.git
