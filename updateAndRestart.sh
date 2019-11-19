@@ -8,7 +8,8 @@ rm -rf engima
 
 # clone the repo again
 #git clone https://username:password@github.com/username/repository.git
-git clone https://gitlab.informatika.org/if3110-2019-02-k01-06/engima.git
+#git clone https://gitlab.informatika.org/if3110-2019-02-k01-06/engima.git
+git clone git@gitlab.informatika.org:if3110-2019-02-k01-06/engima.git
 
 #source the nvm file. In an non
 #If you are not using nvm, add the actual path like
