@@ -12,7 +12,7 @@ function createGenreText(movie) {
 
 function setMovieDetails(movie) {
     document.getElementById('movie-img').src = getImageURLMovieDB() + movie.poster_path;
-    document.getElementById('movie-title').innerHTML = movie.original_title;
+    document.getElementById('movie-title').innerHTML = movie.title;
     document.getElementById('movie-genres').innerHTML = createGenreText(movie);
     document.getElementById('movie-duration').innerHTML = '-';
     document.getElementById('movie-release').innerHTML = 'Released date: ' + movie.release_date;

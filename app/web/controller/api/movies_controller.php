@@ -340,27 +340,32 @@ class MoviesController extends Controller
             while (strlen($screening->seats) < 30) {
                 $screening->seats = '0'.$screening->seats;
             }
-
-            $movie = Movie::get_by('id', $screening->movie_id);
-            if (count($movie) != 1) {
-                $response_data = [
-                    'message' => 'Screening found but invalid!',
-                    'screening' => $screening,
-                    'movie' => $movie[0]
-                ];
-                parent::render(401, $response_data);
-                return;
-            }
             
             $response_data = [
                 'message' => 'Screening found!',
                 'screening' => $screening,
-                'movie' => $movie[0]
+                'movie' => $this->get_movie_from_MovieDB($screening->movie_id)
             ];
             parent::render(200, $response_data);
         } else {
             throw new Exception('404');
         }
+    }
+
+    private function get_movie_from_MovieDB($movie_id)
+    {
+        $url = 'https://api.themoviedb.org/3/movie/'.$movie_id.'?api_key=031993ac58e3af3fa22429862b57c580';
+
+        $opt = array(
+            'http' => array(
+                'method' => 'GET',
+            )
+        );
+
+        $context = stream_context_create($opt);
+        $response = file_get_contents($url, false, $context);
+
+        return json_decode($response, false);
     }
 
     private function normalize_score()

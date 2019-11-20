@@ -72,6 +72,8 @@ function showModal(success, message = null) {
     if (!success) {
         document.getElementById('payment-text').innerHTML = 'Payment Failed';
         document.getElementById('payment-message').innerHTML = message;
+    } else {
+        document.getElementById('virtual-account-message').innerHTML = 'Pay by transfering to ' + message;
     }
     document.getElementById('modal').style.display = 'inherit';
 }
@@ -79,9 +81,9 @@ function showModal(success, message = null) {
 function buyTicketCallback(response) {
     response = JSON.parse(response);
     if (response.response_code === 200) {
-        showModal(true);
+        showModal(true, response.data.virtual_account_number);
     } else {
-        showModal(false, response.data);
+        showModal(false, response.data.message);
     }
 }
 

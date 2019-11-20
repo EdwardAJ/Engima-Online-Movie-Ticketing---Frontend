@@ -66,14 +66,61 @@ class TransactionsController extends Controller
             $transaction->user_id = $user->id;
             $transaction->screening_id = $screening->id;
 
+            $virtual_account_number = $this->create_virtual_account();
+            $this->add_transaction($user, $screening, $normalized_params['seat_id'], $virtual_account_number);
+
             if ($transaction->save() === true && $screening->update() === true) {
-                parent::render(200, 'Successfully bought!');
+                parent::render(200, [
+                    'message' => 'Successfully bought!',
+                    'virtual_account_number' => $virtual_account_number,
+                ]);
             } else {
-                parent::render(401, 'Buy process failed!');
+                parent::render(401, [
+                    'message' => 'Buy process failed!',
+                ]);
             }
         } else {
             throw new Exception('404');
         }
+    }
+
+    private function create_virtual_account()
+    {
+        // $urlWSBank = getenv('WSBANK_API_URL').':'.getenv('WSBANK_API_PORT').'/wsbank/generate?wsdl';
+        $url_WSBank = 'http://'.getenv('HOST_IP').':'.getenv('WSBANK_API_PORT').'/wsbank/generate?wsdl';
+
+        $soap_client = new SoapClient($url_WSBank);
+        $result = $soap_client->generateVirtualAccount(['accountNumber' => '13517000']);
+
+        return $result->return;
+    }
+
+    private function add_transaction($user, $screening, $seat_id, $virtual_account_number)
+    {
+        $url_WSTransaksi = 'http://'.getenv('HOST_IP').':'.getenv('WSTRANSAKSI_API_PORT').'/addPendingTransaction';
+
+        $json_content = http_build_query(
+            array (
+                'user_id' => $user->id,
+                'film_id' => $screening->movie_id,
+                'screening_id' => $screening->id,
+                'seat' => $seat_id,
+                'dest_va' => $virtual_account_number,
+            )
+        );
+
+        $opt = array(
+            'http' => array(
+                'method' => 'POST',
+                'headers' => 'Content-Type: application/json',
+                'content' => $json_content,
+            )
+        );
+
+        $context = stream_context_create($opt);
+        $response = file_get_contents($url_WSTransaksi, false, $context);
+
+        return json_decode($response, false);
     }
 
     private function normalize_get()
@@ -127,18 +174,17 @@ class TransactionsController extends Controller
             
             $user = $user[0];
             $response_data = [];
-            $transactions = Transaction::get_by('user_id', $user->id);
+            // $transactions = Transaction::get_by('user_id', $user->id);
+            $dataFromWSTransaksi = $this->get_transactions_from_WSBank($user->id);
+            $transactions = $dataFromWSTransaksi->values;
+
             foreach ($transactions as $transaction) {
                 $screening = Screening::get_by('id', $transaction->screening_id)[0];
                 if ($screening == null) {
                     parent::render(401, 'Some error occured.');
                     return;
                 }
-                $movie = Movie::get_by('id', $screening->movie_id)[0];
-                if ($movie == null) {
-                    parent::render(401, 'Some error occured.');
-                    return;
-                }
+                $movie = $this->get_movie_from_MovieDB($screening->movie_id);
                 $reviews = Review::get_by('user_id', $user->id);
                 $is_reviewed = false;
                 foreach ($reviews as $review) {
@@ -152,7 +198,9 @@ class TransactionsController extends Controller
                     'id' => $transaction->id,
                     'movie' => $movie,
                     'screening' => $screening,
-                    'is_reviewed' => $is_reviewed
+                    'is_reviewed' => $is_reviewed,
+                    'virtual_account_number' => $transaction->virtual_account_number,
+                    'flag' => $transaction->flag->data[0],
                 ];
 
                 array_push($response_data, $transaction_data);
@@ -161,5 +209,45 @@ class TransactionsController extends Controller
         } else {
             throw new Exception('404');
         }
+    }
+
+    private function get_transactions_from_WSBank($user_id)
+    {
+        $url_WSTransaksi = 'http://'.getenv('HOST_IP').':'.getenv('WSTRANSAKSI_API_PORT').'/getAllTransactions';
+
+        $requestBody = http_build_query(
+            array (
+                'user_id' => $user_id,
+            )
+        );
+
+        $opt = array(
+            'http' => array(
+                'method' => 'GET',
+                'headers' => 'Content-Type: application/json',
+                'content' => $requestBody,
+            )
+        );
+
+        $context = stream_context_create($opt);
+        $response = file_get_contents($url_WSTransaksi, false, $context);
+
+        return json_decode($response, false);
+    }
+
+    private function get_movie_from_MovieDB($movie_id)
+    {
+        $url = 'https://api.themoviedb.org/3/movie/'.$movie_id.'?api_key=031993ac58e3af3fa22429862b57c580';
+
+        $opt = array(
+            'http' => array(
+                'method' => 'GET',
+            )
+        );
+
+        $context = stream_context_create($opt);
+        $response = file_get_contents($url, false, $context);
+
+        return json_decode($response, false);
     }
 }

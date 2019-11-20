@@ -8,7 +8,7 @@ function createHTMLforMovie(movie) {
     <a href="/detail?movie_id=` + String(movie.id) + `">
         <div class="movie-item hoverable">
             <img class="movie-image" src="`+ getImageURLMovieDB() + movie.poster_path + `"/>
-            <p class="movie-title">` + movie.original_title + `</p>
+            <p class="movie-title">` + movie.title + `</p>
             <div class="star-rating">
                 <img class="star-icon" src="../img/movies/star.png"/>` + movie.vote_average + `
             </div>
@@ -28,7 +28,14 @@ function showCurrentMovies(response) {
 }
 
 function getCurrentMovies() {
-    sendRequest('GET', 'https://api.themoviedb.org/3/movie/now_playing', null, showCurrentMovies, true, getGeneralHeaderMovieDB());
+    endDate = new Date();
+    startDate = new Date();
+    startDate.setDate(startDate.getDate() - 7);
+
+    endDateString = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate();
+    startDateString = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
+
+    sendRequest('GET', 'https://api.themoviedb.org/3/discover/movie?region=ID&sort_by=popularity&primary_release_date.gte=' + startDateString + '&primary_release_date.lte=' + endDateString, null, showCurrentMovies, true, getGeneralHeaderMovieDB());
 }
 
 setElementHeights();
