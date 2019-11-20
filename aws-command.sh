@@ -7,10 +7,12 @@ ls /home/ubuntu/engima
 cd /home/ubuntu/engima
 git stash
 git pull origin deployCICD
-echo 'Removing existing container...'
-sudo docker-compose stop engima_php && sleep 10
+echo 'Deleting screen...'
+screen -X -S engima quit
 echo 'Creating .env'
 cp ENV.SAMPLE .env
+echo 'Entering screen...'
+screen -S engima
 echo 'Run the container...'
-sudo docker-compose up -d
+sudo docker-compose up
 echo 'Process done.'
