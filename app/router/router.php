@@ -8,7 +8,7 @@ function Extract_url($url)
 {
     $url = substr($url, -1) == '/' ? substr($url, 0, -1) : $url;
     $url_parts = explode('/', $url);
-    if (strpos(end($url_parts, '?'))) {
+    if (strpos(end($url_parts), '?')) {
         $url_parts[count($url_parts) - 1] = substr(end($url_parts), 0, strpos(end($url_parts), '?'));
     } else {
         $url_parts[count($url_parts) - 1] = end($url_parts);
@@ -76,17 +76,28 @@ function Not_Outside($controller_name)
     return $controller_name != 'login' && $controller_name != 'register';
 }
 
-function Session_Invalid($extracted_url, $controller_name)
+function Should_Redirect_To_Login($extracted_url, $controller_name)
 {
     if (!Is_API_request($extracted_url[0]) && (!isset($_COOKIE['LOGIN_HASH']))) {
         return true;
     }
 
-    if (((!Is_Login_Hash_valid($_COOKIE['LOGIN_HASH']))) && Not_Outside) {
+    var_dump(((!Is_Login_Hash_valid($_COOKIE['LOGIN_HASH']))) && Not_Outside($controller_name));
+    if (((!Is_Login_Hash_valid($_COOKIE['LOGIN_HASH']))) && Not_Outside($controller_name)) {
         return true;
     }
 
     return false;
+}
+
+function Is_Logged_In()
+{
+    return isset($_COOKIE['LOGIN_HASH']) && Is_Login_Hash_valid($_COOKIE['LOGIN_HASH']);
+}
+
+function Is_From_Login_Or_Register($controller_name)
+{
+    return $controller_name == 'login' || $controller_name == 'register';
 }
 
 function Handle_routing($extracted_url)
@@ -109,7 +120,7 @@ function Handle_routing($extracted_url)
             throw new Exception('404');
         }
 
-        if (Session_Invalid($extracted_url, $controller_name)) {
+        if (!Is_API_request($extracted_url[0]) && !Is_Logged_In() && !Is_From_Login_Or_Register($controller_name)) {
             header("Location: /login");
             exit();
         }
