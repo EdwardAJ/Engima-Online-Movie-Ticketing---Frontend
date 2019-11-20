@@ -15,4 +15,4 @@ cp ENV.SAMPLE .env
 echo 'Create executable...'
 sudo chmod +x ./start-server.sh
 echo 'Entering screen...'
-screen -S engima ./start-server.sh
+screen -d -m -S engima ./start-server.sh
