@@ -10,8 +10,8 @@ linting_ganja:
     - phpcs --standard=psr2 --extensions=php --exclude=PSR1.Methods.CamelCapsMethodName,PSR1.Classes.ClassDeclaration,Squiz.Classes.ValidClassName,PSR1.Files.SideEffects -s app/*
 
 deploy_to_aws:
-  # only:
-  #   - master
+  only:
+    - master
   stage: deploy
   tags:
     - tubes2wbd

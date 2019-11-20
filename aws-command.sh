@@ -6,8 +6,8 @@ echo 'DIR?'
 ls /home/ubuntu/engima
 cd /home/ubuntu/engima
 git stash
-git checkout deployCICD
-git pull origin deployCICD
+git checkout master
+git pull origin master
 echo 'Deleting screen...'
 screen -X -S engima quit
 echo 'Creating .env'
