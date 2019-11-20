@@ -6,6 +6,7 @@ echo 'DIR?'
 ls /home/ubuntu/engima
 cd /home/ubuntu/engima
 git stash
+git checkout deployCICD
 git pull origin deployCICD
 echo 'Deleting screen...'
 screen -X -S engima quit
