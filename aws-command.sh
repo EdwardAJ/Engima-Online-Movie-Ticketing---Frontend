@@ -11,8 +11,7 @@ echo 'Deleting screen...'
 screen -X -S engima quit
 echo 'Creating .env'
 cp ENV.SAMPLE .env
+echo 'Create executable...'
+sudo chmod +x ./start-server.sh
 echo 'Entering screen...'
-screen -S engima
-echo 'Run the container...'
-sudo docker-compose up
-echo 'Process done.'
+screen -S engima ./start-server.sh
