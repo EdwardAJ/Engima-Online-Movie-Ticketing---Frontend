@@ -6,7 +6,7 @@ echo 'DIR?'
 ls /home/ubuntu/engima
 cd /home/ubuntu/engima
 git stash
-git pull origin master
+git pull origin deployCICD
 echo 'Removing existing container...'
 sudo docker-compose stop engima_php && sleep 10
 echo 'Run the container...'
