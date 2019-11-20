@@ -1,52 +1,22 @@
-image: node:8.9.0
-
-# environment:
-#     - MYSQL_SERVER_FOR_PHP : mysql:3306
-#     - MYSQL_CONTAINER_NAME : engima_mysql
-#     - MYSQL_DATABASE : engima_database
-#     - MYSQL_USER : engima
-#     - MYSQL_PASS : engimapw
-
-# job:
-#   tags:
-#     - build
-#     - run
-variables:
-    MYSQL_SERVER_FOR_PHP: 'mysql:3306'
-    MYSQL_CONTAINER_NAME: 'engima_mysql'
-    MYSQL_DATABASE: 'engima_database'
-    MYSQL_USER: 'engima'
-    MYSQL_PASS: 'engimapw'
-
-before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-
-
 stages:
-    - deploy
+  - build
+  - deploy
 
-# build:
-#   stage: build
-  
-#   script:
-#     - gcc helloworld.c -o hello
-  
-  
-
-#   artifacts:
-#     paths:
-#       - hello.exe
-     
-
-# run:
-#   stage: run
-#   script:
-#     - ./hello
-
-deploy:dev:
-  stage: deploy
+linting_ganja:
+  stage: build
+  tags:
+    - tubes2wbd
   script:
-    - bash deploy.sh
+    - phpcs --standard=psr2 --extensions=php --exclude=PSR1.Methods.CamelCapsMethodName,PSR1.Classes.ClassDeclaration,Squiz.Classes.ValidClassName,PSR1.Files.SideEffects -s app/*
+
+deploy_to_aws:
   only:
     - master
-
+  stage: deploy
+  tags:
+    - tubes2wbd
+  script:
+    - bash aws-command.sh
+  environment:
+    name: production
+    url: ec2-54-89-199-114.compute-1.amazonaws.com

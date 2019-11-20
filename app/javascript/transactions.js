@@ -31,7 +31,7 @@ function createHTMLforTransaction(transaction) {
     html_string =
         `
     <div class="transactions-item">
-        <img class="transactions-img" src="` + transaction.movie.movie_picture_url + `" alt="img"/>
+        <img class="transactions-img" src="` + getImageURLMovieDB() + transaction.movie.poster_path + `" alt="img"/>
         <div class="transactions-description">
             <h2 class>` + transaction.movie.title + `</h2>
             <b class="blue-text">Schedule:</b>` + transaction.screening.show_time + `

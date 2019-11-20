@@ -27,14 +27,7 @@ class MoviesController extends Controller
                 return;
             }
 
-            $movie = Movie::get_by('id', $normalized_params['movie_id']);
-            if (count($movie) != 1) {
-                parent::render(401, 'Movie not found!');
-                return;
-            }
-
-            $movie = $movie[0];
-            $reviews = Review::get_by('movie_id', $movie->id);
+            $reviews = Review::get_by('movie_id', $normalized_params['movie_id']);
 
             $response_data = [];
             foreach ($reviews as $review) {
@@ -252,8 +245,13 @@ class MoviesController extends Controller
             throw new Exception('Parameter movie_id required!');
         }
 
+        if (!isset($_GET['release_date'])) {
+            throw new Exception('Parameter release_date required!');
+        }
+
         return [
-            'movie_id' => $_GET['movie_id']
+            'movie_id' => $_GET['movie_id'],
+            'release_date' => $_GET['release_date']
         ];
     }
 
@@ -270,14 +268,20 @@ class MoviesController extends Controller
                 return;
             }
 
-            $movie = Movie::get_by('id', $normalized_params['movie_id']);
-            if (count($movie) != 1) {
-                parent::render(401, 'Movie not found!');
-                return;
+            $screenings = Screening::get_by('movie_id', $normalized_params['movie_id']);
+            if (count($screenings) == 0) {
+                $release_date = new DateTime($normalized_params['release_date']);
+                for ($i = 0; $i < 7; $i++) {
+                    $release_date->add(new DateInterval('P1D'));
+                    $new_screening = new Screening();
+                    $new_screening->movie_id = (int) $normalized_params['movie_id'];
+                    $new_screening->show_time = $release_date;
+                    $new_screening->price = 45000;
+                    $new_screening->seats = 0;
+                    $new_screening->save();
+                }
+                $screenings = Screening::get_by('movie_id', $normalized_params['movie_id']);
             }
-
-            $movie = $movie[0];
-            $screenings = Screening::get_by('movie_id', $movie->id);
 
             $response_data = [];
             foreach ($screenings as $screening) {
@@ -336,27 +340,32 @@ class MoviesController extends Controller
             while (strlen($screening->seats) < 30) {
                 $screening->seats = '0'.$screening->seats;
             }
-
-            $movie = Movie::get_by('id', $screening->movie_id);
-            if (count($movie) != 1) {
-                $response_data = [
-                    'message' => 'Screening found but invalid!',
-                    'screening' => $screening,
-                    'movie' => $movie[0]
-                ];
-                parent::render(401, $response_data);
-                return;
-            }
             
             $response_data = [
                 'message' => 'Screening found!',
                 'screening' => $screening,
-                'movie' => $movie[0]
+                'movie' => $this->get_movie_from_MovieDB($screening->movie_id)
             ];
             parent::render(200, $response_data);
         } else {
             throw new Exception('404');
         }
+    }
+
+    private function get_movie_from_MovieDB($movie_id)
+    {
+        $url = 'https://api.themoviedb.org/3/movie/'.$movie_id.'?api_key=031993ac58e3af3fa22429862b57c580';
+
+        $opt = array(
+            'http' => array(
+                'method' => 'GET',
+            )
+        );
+
+        $context = stream_context_create($opt);
+        $response = file_get_contents($url, false, $context);
+
+        return json_decode($response, false);
     }
 
     private function normalize_score()
@@ -458,17 +467,9 @@ class MoviesController extends Controller
 
             $user = $user[0];
 
-            $movie = Movie::get_by('id', $normalized_params['movie_id']);
-            if (count($movie) != 1) {
-                parent::render(401, 'Movie not found!');
-                return;
-            }
-
-            $movie = $movie[0];
-
             $review = new Review();
             $review->user_id = $user->id;
-            $review->movie_id = $movie->id;
+            $review->movie_id = $normalized_params['movie_id'];
             $review->rating = $normalized_params['score'];
             $review->content = $normalized_params['content'];
 

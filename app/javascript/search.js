@@ -8,14 +8,14 @@ function createHTMLforMovie(movie) {
     <div class="search-item-container">
         <div class="search-item-grid">
             <div class="movie-image-result">
-                <img class="movie-image" src="` + movie.movie_picture_url + `"/>
+                <img class="movie-image" src="` + getImageURLMovieDB() + movie.poster_path + `"/>
             </div>
             <div class="about-movie">
                 <p class="movie-title">` + movie.title + `</p>
                 <div class="star-rating">
-                    <img class="star-icon" src="../img/movies/star.png"/>` + String(movie.score) + `
+                    <img class="star-icon" src="../img/movies/star.png"/>` + String(movie.vote_average) + `
                 </div>
-                <p class="movie-description">` + movie.description + `</p>
+                <p class="movie-description">` + movie.overview + `</p>
             </div>
             <div class="details-button">
                 <a class="blue-text" href="/detail?movie_id=` + String(movie.id) + `">View details</a>
@@ -80,16 +80,14 @@ function showPage(pageElement, pageNumber) {
 
 function movieSearchCallback(response) {
     response = JSON.parse(response);
-    if (response.response_code === 200) {
-        movies = response.data;
-        document.getElementById('result_count').innerHTML = movies.length;
-        document.getElementById('search_footer').innerHTML = createHTMLforFooter(movies.length);
-        showPage(document.getElementById('page-button-1'), 1);
-    }
+    movies = response.results;
+    document.getElementById('result_count').innerHTML = movies.length;
+    document.getElementById('search_footer').innerHTML = createHTMLforFooter(movies.length);
+    showPage(document.getElementById('page-button-1'), 1);
 }
 
-function getMovies(movie_name) {
-    sendRequest('GET', getAPIDomain() + '/movies/search?movie_name=' + movie_name, null, movieSearchCallback);
+function getMovies(movieName) {
+    sendRequest('GET', 'https://api.themoviedb.org/3/search/movie?region=ID&query=' + movieName + '&include_adult=true', null, movieSearchCallback, false, getGeneralHeaderMovieDB());
 }
 
 movies = null;

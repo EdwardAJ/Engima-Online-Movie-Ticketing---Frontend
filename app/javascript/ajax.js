@@ -25,11 +25,23 @@ function universalCallback(ajaxRequest, callbackFunction) {
     }
 }
 
-function sendRequest(method, url, payload, callbackFunction, async = true) {
+// Object for header example. Header must be an array!
+//
+// {
+//     header: 'Authorization',
+//     value: 'Bearer <>'
+// }
+
+function sendRequest(method, url, payload, callbackFunction, async = true, header = null) {
     ajaxRequest = new XMLHttpRequest();
     ajaxRequest.onreadystatechange = function () {
         universalCallback(ajaxRequest, callbackFunction);
     };
     ajaxRequest.open(method, url, async);
+    if (header != null) {
+        for (var i = 0; i < header.length; i++) {
+            ajaxRequest.setRequestHeader(header[i].header, header[i].value);
+        }
+    }
     ajaxRequest.send(payload);
 }
