@@ -467,17 +467,9 @@ class MoviesController extends Controller
 
             $user = $user[0];
 
-            $movie = Movie::get_by('id', $normalized_params['movie_id']);
-            if (count($movie) != 1) {
-                parent::render(401, 'Movie not found!');
-                return;
-            }
-
-            $movie = $movie[0];
-
             $review = new Review();
             $review->user_id = $user->id;
-            $review->movie_id = $movie->id;
+            $review->movie_id = $normalized_params['movie_id'];
             $review->rating = $normalized_params['score'];
             $review->content = $normalized_params['content'];
 

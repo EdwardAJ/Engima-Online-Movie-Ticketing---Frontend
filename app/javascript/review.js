@@ -2,14 +2,12 @@ setElementHeights('review-container');
 
 function getMovieDetailCallback(response) {
     response = JSON.parse(response);
-    if (response.response_code === 200) {
-        document.getElementById('movie-title').innerHTML = response.data.title;
-        currentMovie = response.data;
-    }
+    document.getElementById('movie-title').innerHTML = response.title;
+    currentMovie = response;
 }
 
 function getMovieDetail() {
-    sendRequest('GET', getAPIDomain() + '/movies/get?movie_id=' + getParameterValue(window.location, 'movie_id'), null, getMovieDetailCallback);
+    sendRequest('GET', 'https://api.themoviedb.org/3/movie/' + getParameterValue(location, 'movie_id'), null, getMovieDetailCallback, false, getGeneralHeaderMovieDB());
 }
 
 function createHTMLforStars() {
