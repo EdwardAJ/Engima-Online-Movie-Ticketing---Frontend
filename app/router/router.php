@@ -40,17 +40,17 @@ function Is_Action_valid($controller, $action_name)
 function Create_controller($controller_name, $is_api = false)
 {
     if ($is_api) {
-        require_once(root().'/web/controller/api/'.strtolower($controller_name).'_controller.php');
+        include_once root().'/web/controller/api/'.strtolower($controller_name).'_controller.php';
     } else {
-        require_once(root().'/web/controller/'.strtolower($controller_name).'_controller.php');
+        include_once root().'/web/controller/'.strtolower($controller_name).'_controller.php';
     }
     $controller_class_name = $controller_name.'Controller';
     return new $controller_class_name();
 }
 
-function Is_Login_hash_valid($login_hash)
+function Is_Login_Hash_valid($login_hash)
 {
-    require_once(root().'/web/model/user.php');
+    include_once root().'/web/model/user.php';
     return count(User::get_by('login_hash', $login_hash)) == 1;
 }
 
@@ -74,7 +74,7 @@ function Handle_routing($extracted_url)
             throw new Exception('404');
         }
 
-        if (!Is_API_request($extracted_url[0]) && (!isset($_COOKIE['LOGIN_HASH']) || (!Is_Login_hash_valid($_COOKIE['LOGIN_HASH']))) && $controller_name != 'login' && $controller_name != 'register') {
+        if (!Is_API_request($extracted_url[0]) && (!isset($_COOKIE['LOGIN_HASH']) || (!Is_Login_Hash_valid($_COOKIE['LOGIN_HASH']))) && $controller_name != 'login' && $controller_name != 'register') {
             header("Location: /login");
             exit();
         }
