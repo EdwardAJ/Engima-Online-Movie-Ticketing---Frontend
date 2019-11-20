@@ -3,8 +3,13 @@ abstract class Model
 {
     protected static function get_mysql_connection()
     {
-        require_once(root().'/wrapper/mysql_connection.php');
-        return new MySQLConnection(getenv('MYSQL_SERVER_FOR_PHP'), getenv('MYSQL_USER'), getenv('MYSQL_PASS'), getenv('MYSQL_DATABASE'));
+        include_once root().'/wrapper/mysql_connection.php';
+        return new MySQLConnection(
+            getenv('MYSQL_SERVER_FOR_PHP'),
+            getenv('MYSQL_USER'),
+            getenv('MYSQL_PASS'),
+            getenv('MYSQL_DATABASE')
+        );
     }
 
     public static function get_by($column, $value)
@@ -74,7 +79,10 @@ abstract class Model
     {
         $mysql_connection = static::get_mysql_connection();
 
-        $query = 'INSERT INTO '.strtolower(get_called_class()).'s ('.$this->object_to_attributes_string().') VALUES ('.$this->object_to_value_string().');';
+        $query = 'INSERT INTO ';
+        $query .= strtolower(get_called_class()).'s ';
+        $query .= '('.$this->object_to_attributes_string().') ';
+        $query .= 'VALUES ('.$this->object_to_value_string().');';
         
         return $mysql_connection->query($query);
     }
@@ -116,7 +124,7 @@ abstract class Model
             if ($value != null || $value === 0) {
                 if (gettype($value) == 'string') {
                     $value_string .= '"'.$value.'"';
-                } else if ($value instanceof DateTime) {
+                } elseif ($value instanceof DateTime) {
                     $value_string .= '"'.$value->format('Y-m-d h:i:s').'"';
                 } else {
                     $value_string .= $value;

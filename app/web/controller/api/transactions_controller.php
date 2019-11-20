@@ -152,7 +152,11 @@ class TransactionsController extends Controller
             }
 
             $get_by_param = $normalized_params['user_id'] != null ? 'user_id' : 'user_name';
-            $get_by_param_value = $normalized_params['user_id'] != null ? $normalized_params['user_id'] : $normalized_params['username'];
+            if ($normalized_params['user_id'] != null) {
+                $get_by_param_value = $normalized_params['user_id'];
+            } else {
+                $get_by_param_value = $normalized_params['username'];
+            }
             
             $user = null;
             try {

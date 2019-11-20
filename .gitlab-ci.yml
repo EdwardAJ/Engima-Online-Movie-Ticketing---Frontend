@@ -7,7 +7,7 @@ linting_ganja:
   tags:
     - tubes2wbd
   script:
-    - phpcs --standard=psr2 --extensions=php --exclude=PSR1.Methods.CamelCapsMethodName,PSR1.Classes.ClassDeclaration,Squiz.Classes.ValidClassName -s app/*
+    - phpcs --standard=psr2 --extensions=php --exclude=PSR1.Methods.CamelCapsMethodName,PSR1.Classes.ClassDeclaration,Squiz.Classes.ValidClassName,PSR1.Files.SideEffects -s app/*
 
 deploy_to_aws:
   # only:

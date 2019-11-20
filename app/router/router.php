@@ -8,7 +8,11 @@ function Extract_url($url)
 {
     $url = substr($url, -1) == '/' ? substr($url, 0, -1) : $url;
     $url_parts = explode('/', $url);
-    $url_parts[count($url_parts) - 1] = strpos(end($url_parts), '?') ? substr(end($url_parts), 0, strpos(end($url_parts), '?')) : end($url_parts);
+    if (strpos(end($url_parts, '?'))) {
+        $url_parts[count($url_parts) - 1] = substr(end($url_parts), 0, strpos(end($url_parts), '?'));
+    } else {
+        $url_parts[count($url_parts) - 1] = end($url_parts);
+    }
     return $url_parts;
 }
 
@@ -54,6 +58,37 @@ function Is_Login_Hash_valid($login_hash)
     return count(User::get_by('login_hash', $login_hash)) == 1;
 }
 
+function Request_Invalid($extracted_url, $controller_name)
+{
+    if (!Is_API_request($extracted_url[0]) && !Is_Controller_valid($controller_name)) {
+        return true;
+    }
+
+    if (Is_API_request($extracted_url[0]) && !Is_API_Controller_valid($controller_name)) {
+        return true;
+    }
+
+    return false;
+}
+
+function Not_Outside($controller_name)
+{
+    return $controller_name != 'login' && $controller_name != 'register';
+}
+
+function Session_Invalid($extracted_url, $controller_name)
+{
+    if (!Is_API_request($extracted_url[0]) && (!isset($_COOKIE['LOGIN_HASH']))) {
+        return true;
+    }
+
+    if (((!Is_Login_Hash_valid($_COOKIE['LOGIN_HASH']))) && Not_Outside) {
+        return true;
+    }
+
+    return false;
+}
+
 function Handle_routing($extracted_url)
 {
     ob_start();
@@ -63,7 +98,7 @@ function Handle_routing($extracted_url)
         }
 
         $controller_name = $extracted_url[1] != null ? $extracted_url[1] : 'home';
-        if ((!Is_API_request($extracted_url[0]) && !Is_Controller_valid($controller_name)) || (Is_API_request($extracted_url[0]) && !Is_API_Controller_valid($controller_name))) {
+        if (Request_Invalid($extracted_url, $controller_name)) {
             throw new Exception('404');
         }
         
@@ -74,7 +109,7 @@ function Handle_routing($extracted_url)
             throw new Exception('404');
         }
 
-        if (!Is_API_request($extracted_url[0]) && (!isset($_COOKIE['LOGIN_HASH']) || (!Is_Login_Hash_valid($_COOKIE['LOGIN_HASH']))) && $controller_name != 'login' && $controller_name != 'register') {
+        if (Session_Invalid($extracted_url, $controller_name)) {
             header("Location: /login");
             exit();
         }
