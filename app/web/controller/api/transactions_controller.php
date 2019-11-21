@@ -205,6 +205,7 @@ class TransactionsController extends Controller
                     'is_reviewed' => $is_reviewed,
                     'virtual_account_number' => $transaction->virtual_account_number,
                     'flag' => $transaction->flag->data[0],
+                    'seat_id'=> $transaction->seat_id
                 ];
 
                 array_push($response_data, $transaction_data);

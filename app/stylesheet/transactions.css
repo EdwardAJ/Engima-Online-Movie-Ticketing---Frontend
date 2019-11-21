@@ -49,6 +49,7 @@
 }
 
 .transactions-description {
+    display: block;
     padding: 0px 20px 0px 20px;
     width: 57%;
 }
