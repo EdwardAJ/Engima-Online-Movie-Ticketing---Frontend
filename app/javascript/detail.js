@@ -20,6 +20,19 @@ function setMovieDetails(movie) {
     document.getElementById('movie-description-text').innerHTML = movie.overview;
 }
 
+function setAverageRating(reviews) {
+    var sum = 0;
+    var minLength = reviews.length < 3 ? reviews.length : 3;
+    if (minLength === 0) {
+        minLength = 1;
+    }
+    for (i = 0; i < reviews.length && i < 3; i++) {
+        sum += reviews[i].rating;
+    }
+    var averageRating = sum / minLength;
+    document.getElementById('movie-rating-user').innerHTML = averageRating;
+}
+
 function getMovieDetailCallback(response) {
     response = JSON.parse(response);
     setMovieDetails(response);
@@ -45,23 +58,57 @@ function createHTMLforReview(review) {
     return html_string;
 }
 
+function createHTMLforDetailedReviewMovieDB(review) {
+    html_string =
+        `
+    <div class="reviews-item">
+        <div class="reviews-description">
+            <p class="reviews-name"><b>` + review.author + `</b></p>
+            <p class="reviews-text">` + review.content + `</p>
+        </div>
+    </div>
+    `;
+
+    return html_string;
+}
+
 
 function setMovieReviews(reviews) {
+    console.log(reviews);
     for (i = 0; i < reviews.length && i < 3; i++) {
         document.getElementById('reviews-item-container').insertAdjacentHTML('beforeend', createHTMLforReview(reviews[i]));
+    }
+}
+
+function setDetailedReviewsMovieDB(reviews) {
+    console.log("Reviews: ", reviews);
+    for (i = 0; i < reviews.length && i < 3; i++) {
+        document.getElementById('reviews-item-container-critics').insertAdjacentHTML('beforeend', createHTMLforDetailedReviewMovieDB(reviews[i]));
     }
 }
 
 function getMovieReviewsCallback(response) {
     response = JSON.parse(response);
     if (response.response_code === 200) {
+        setAverageRating(response.data);
         setMovieReviews(response.data);
     }
+}
+
+function getDetailedReviewsMovieDBCallback (response) {
+    response  = JSON.parse(response);
+    console.log("response: ", response);
+    setDetailedReviewsMovieDB(response.results);
 }
 
 function getMovieReviews() {
     sendRequest('GET', getAPIDomain() + '/movies/reviews?movie_id=' + getParameterValue(location, 'movie_id'), null, getMovieReviewsCallback, false);
 }
+
+function getDetailedReviewsMovieDB () {
+    sendRequest('GET', 'https://api.themoviedb.org/3/movie/' + getParameterValue(location, 'movie_id') + '/reviews', null, getDetailedReviewsMovieDBCallback, false, getGeneralHeaderMovieDB());
+}
+
 
 function getEmptySeatNumber(binaryString) {
     while (binaryString.includes('1')) {
@@ -122,4 +169,5 @@ setElementHeights('body-container');
 
 getMovieDetail();
 getMovieReviews();
+getDetailedReviewsMovieDB();
 getMovieSchedule();
