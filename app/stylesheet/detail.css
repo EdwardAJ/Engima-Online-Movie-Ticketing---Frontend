@@ -106,6 +106,7 @@ h2 {
     border-radius: 5px;
 }
 
+
 .table {
     display: table;
     width: 100%;
@@ -158,6 +159,7 @@ h2 {
 .reviews-item-container {
     margin: 20px 5px;
 }
+
 
 .reviews-item {
     display: flex;
