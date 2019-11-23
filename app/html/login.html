@@ -3,9 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-witdh, initial-scale=1">
+	<meta name="google-signin-client_id" content="245297083279-spei5d0g1dsv48poqmi1i6fr053vlff1.apps.googleusercontent.com">
 	<link rel="stylesheet" type="text/css" href="../stylesheet/template.css">
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
 	<script src="../javascript/ajax.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<title>Login Page</title>
 </head>
 <body class="container-body">
@@ -21,6 +23,8 @@
 			<input class="submit-button hoverable" type="button" value="Login" onclick="loginAction()">
 			<p class="text-style">Don't have an account?<a href="/register">Register here</a></p>
 		</form>
+		<p class="or-text-style"> Or</p>
+		<div class="g-signin2" data-onsuccess="googleLoginAction"></div>
 	</div>
 	<script src="../javascript/utility.js"></script>
 	<script src="../javascript/login.js"></script>

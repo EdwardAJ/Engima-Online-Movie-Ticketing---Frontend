@@ -27,6 +27,26 @@ class UserController extends Controller
         ];
     }
 
+    private function normalize_google_login() 
+    {
+        if (!isset($_POST['username'])) {
+            throw new Exception('Unable to get username!');
+        }
+        if (!isset($_POST['email'])) {
+            throw new Exception('Unable to get email!');
+        }
+        if (!isset($_POST['image'])) {
+            throw new Exception('Unable to get image!');
+        }
+        return [
+            'username' => $_POST['username'],
+            'email' => $_POST['email'],
+            'pass' => $_POST['pass'],
+            'phone' => $_POST['phone'],
+            'image' => $_POST['image']
+        ];
+    }
+
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -56,6 +76,63 @@ class UserController extends Controller
             if ($user->update() === true) {
                 $response_data = [
                     'message' => 'Login success!',
+                    'username' => $user->username,
+                    'login_hash' => $user->login_hash
+                ];
+                parent::render(200, $response_data);
+            } else {
+                parent::render(502, 'Some error occured.');
+            }
+        } else {
+            throw new Exception('404');
+        }
+    }
+
+    public function googleLogin()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            require_once(root().'/web/model/user.php');
+            $normalized_params = [];
+
+            try {
+                $normalized_params = $this->normalize_login();
+            } catch (Exception $e) {
+                parent::render(401, $e->getMessage());
+                return;
+            }
+
+            $user = User::get_by('email', $normalized_params['email']);
+            if (count($user) != 1) {
+                // Redirect to auto register a google account
+                $user = new User();
+                $user->username = $_POST['username'];
+                $user->email = $_POST['email'];
+                $user->pass = $_POST['pass'];
+                $user->phone_number = $_POST['phone_number'];
+                $user->profile_picture_url = $_POST['image'];
+                $user->login_hash = password_hash($user->pass, PASSWORD_DEFAULT);
+
+                if ($user->save() === true) {
+                    $response_data = [
+                        'message' => 'Google Account Registered on Engima',
+                        'username' => $user->username,
+                        'login_hash' => $user->login_hash
+                    ];
+                    parent::render(200, $response_data);
+                    return;
+                } else {
+                    parent::render(502, 'Not saved. Some error occured.');
+                    return;
+                }
+            }
+
+            // If user have google account registered on Engima
+            $user = $user[0];
+
+            $user->login_hash = password_hash($user->pass, PASSWORD_DEFAULT);
+            if ($user->update() === true) {
+                $response_data = [
+                    'message' => 'Google Sign In Success!',
                     'username' => $user->username,
                     'login_hash' => $user->login_hash
                 ];
