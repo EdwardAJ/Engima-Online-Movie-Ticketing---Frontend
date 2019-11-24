@@ -84,6 +84,69 @@ class TransactionsController extends Controller
         }
     }
 
+    public function normalize_cancel_seat()
+    {
+        if (!isset($_POST['showing_id'])) {
+            throw new Exception('Parameter showing_id required!');
+        }
+        if (!isset($_POST['seat_id'])) {
+            throw new Exception('Parameter seat_id required!');
+        }
+
+        return [
+            'showing_id' => $_POST['showing_id'],
+            'seat_id' => $_POST['seat_id'] - 1
+        ];
+    }
+
+    public function cancel_seat()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            require_once(dirname(dirname(__DIR__)).'/model/transaction.php');
+            require_once(dirname(dirname(__DIR__)).'/model/screening.php');
+            require_once(dirname(dirname(__DIR__)).'/model/user.php');
+            $normalized_params = null;
+            try {
+                $normalized_params = $this->normalize_cancel_seat();
+            } catch (Exception $e) {
+                parent::render(401, $e->getMessage());
+                return;
+            }
+
+            $screening = Screening::get_by('id', $normalized_params['showing_id']);
+            if (count($screening) != 1) {
+                parent::render(401, 'Screening not found!');
+                return;
+            }
+            $screening = $screening[0];
+            $screening->seats = decbin($screening->seats);
+            
+            while (strlen($screening->seats) < 30) {
+                $screening->seats = '0'.$screening->seats;
+            }
+
+            if ($screening->seats[$normalized_params['seat_id']] != '1') {
+                parent::render(401, 'Seat is not occupied!');
+                return;
+            }
+
+            $screening->seats[$normalized_params['seat_id']] = '0';
+            $screening->seats = bindec($screening->seats);
+
+            if ($screening->update() === true) {
+                parent::render(200, [
+                    'message' => 'Successfully cancelled!',
+                ]);
+            } else {
+                parent::render(401, [
+                    'message' => 'Seat cancellation process failed!',
+                ]);
+            }
+        } else {
+            throw new Exception('404');
+        }
+    }
+
     private function create_virtual_account()
     {
         // $urlWSBank = getenv('WSBANK_API_URL').':'.getenv('WSBANK_API_PORT').'/wsbank/generate?wsdl';
