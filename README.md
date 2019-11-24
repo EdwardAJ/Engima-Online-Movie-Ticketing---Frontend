@@ -16,11 +16,11 @@ Pada Tugas Besar 2 kali ini, Aplikasi Engima memiliki beberapa perubahan yang di
 Tidak ada perubahan, namun database yang digunakan hanya database `user` dan `screening`
 
 **Screenshot Perubahan Tampilan pada Engima**
-![Alt Text](screenshot/login.png?raw=true "Login Page")
-![Alt Text](screenshot/home.png?raw=true "Home Page")
-![Alt Text](screenshot/detail.png?raw=true "Movie Details Page")
-![Alt Text](screenshot/buy.png?raw=true "Buy Ticket Page")
-![Alt Text](screenshot/transaction.png?raw=true "Transaction History Page")
+![Alt Text](screenshot/login.PNG?raw=true "Login Page")
+![Alt Text](screenshot/home.PNG?raw=true "Home Page")
+![Alt Text](screenshot/detail.PNG?raw=true "Movie Details Page")
+![Alt Text](screenshot/buy.PNG?raw=true "Buy Ticket Page")
+![Alt Text](screenshot/transaction.PNG?raw=true "Transaction History Page")
 
 **Pembagian Tugas** <br/>
 Engima: <br/>
