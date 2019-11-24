@@ -25,20 +25,21 @@ Tidak ada perubahan, namun database yang digunakan hanya database `user` dan `sc
 **Pembagian Tugas** <br/>
 Engima: <br/>
 1. Database design: 13517070 <br/>
-2. Home: 13517115 <br/>
-3. Film details: 13517115 <br/>
+2. Home: 13517070 <br/>
+3. Film details: 13517070 <br/>
 4. Buy tickets: 13517070 <br/>
-5. Transaction history - status:  <br/>
-6. Transaction history:  <br/>
+5. Transaction history - status: 13517115 <br/>
+6. Transaction history: 13517115 <br/>
+7. Sign in with Google: 13516088
 
 Bankpro: <br/>
-1. Login: 13517115 <br/>
-2. Transfer: 13517070 <br/>
-3. Riwayat transaksi:  <br/>
+1. Login: 13516088 <br/>
+2. Transfer: 13517115 <br/>
+3. Riwayat transaksi: 13517115 <br/>
 4. Style CSS: 13517115, 13516088, 13517070 <br/>
 
 Bank: <br/>
-1. Transaction check: <br/>
+1. Transaction check: 13516088 <br/>
 2. Virtual account: 13517115 <br/>
 3. Transfer transaction: 13517070 <br/>
 4. Data rekening: 13517115 <br/>
@@ -51,3 +52,10 @@ Rest api transaksi: <br/>
 
 BONUS: <br/>
 1. Login Via Google: 13516088 <br/>
+
+
+Untuk Tugas Besar 2 Mata Kuliah **IF-3159 Dasar Pembangunan Perangkat Lunak**.
+
+1. CI/CD: 13517070, 13516001
+2. Eksplorasi mesin deployment: 13517070, 13516001, 13517115
+
