@@ -86,16 +86,18 @@ class TransactionsController extends Controller
 
     public function normalize_cancel_seat()
     {
-        if (!isset($_POST['showing_id'])) {
+        $postBody = file_get_contents('php://input');
+        $postJSON = json_decode($requestBody, false);
+        if (!isset($postJSON->showing_id)) {
             throw new Exception('Parameter showing_id required!');
         }
-        if (!isset($_POST['seat_id'])) {
+        if (!isset($postJSON->seat_id)) {
             throw new Exception('Parameter seat_id required!');
         }
 
         return [
-            'showing_id' => $_POST['showing_id'],
-            'seat_id' => $_POST['seat_id'] - 1
+            'showing_id' => $postJSON->showing_id,
+            'seat_id' => $postJSON->seat_id - 1,
         ];
     }
 
