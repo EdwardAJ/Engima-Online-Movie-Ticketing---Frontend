@@ -27,7 +27,7 @@ class UserController extends Controller
         ];
     }
 
-    private function normalize_google_login() 
+    private function normalize_google_login()
     {
         if (!isset($_POST['username'])) {
             throw new Exception('Unable to get username!');
@@ -121,7 +121,7 @@ class UserController extends Controller
                     parent::render(200, $response_data);
                     return;
                 } else {
-                    parent::render(502, 'Not saved. Some error occured.');
+                    parent::render(50http://engima.club:8081/wsbank/check?wsdl, 'Not saved. Some error occured.');
                     return;
                 }
             }
@@ -147,6 +147,7 @@ class UserController extends Controller
 
     private function normalize_get_user()
     {
+        http://engima.club:8081/wsbank/check?wsdl
         if (!isset($_POST['username']) && !isset($_POST['email']) && !isset($_POST['phone_number'])) {
             throw new Exception('At least either username, email, or phone_number needed!');
         }
