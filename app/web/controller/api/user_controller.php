@@ -121,7 +121,7 @@ class UserController extends Controller
                     parent::render(200, $response_data);
                     return;
                 } else {
-                    parent::render(50http://engima.club:8081/wsbank/check?wsdl, 'Not saved. Some error occured.');
+                    parent::render(http://engima.club:8081/wsbank/check?wsdl, 'Not saved. Some error occured.');
                     return;
                 }
             }
