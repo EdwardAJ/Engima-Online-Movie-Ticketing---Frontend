@@ -10,5 +10,12 @@
         <div class="menu-text hoverable" id="logout" onclick="logoutAction()">Logout</div>
     </div>
 </div>
+<script>
+    window.onLoadCallback = function(){
+      gapi.auth2.init({
+          client_id: 'filler_text_for_client_id.apps.googleusercontent.com'
+        });
+    }
+</script>
 <script src="../javascript/utility.js"></script>
 <script src="../javascript/navbar.js"></script>
